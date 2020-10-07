@@ -29,6 +29,7 @@ def home():
     #     return redirect(url_for('login'))
 
     total_clicks = db.engine.execute(f'SELECT SUM(clicks) FROM User').fetchone()[0]
+    leaderboard = db.engine.execute(f'SELECT username, clicks FROM User ORDER BY clicks DESC LIMIT 10').fetchall()
 
     if request.method == 'POST':
         if request.form['login']:
@@ -36,7 +37,7 @@ def home():
         if request.form['signup']:
             return redirect(url_for('signup'))
 
-    return render_template('index.html', total_clicks=total_clicks)
+    return render_template('index.html', total_clicks=total_clicks, leaderboard=leaderboard)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

@@ -29,12 +29,36 @@
     <br><br><br><br><br><br>
 
     <div class='row'>
-        <div class='col-3'></div>
-        <h1 class="col-5 display-2 center-block">{{ total_clicks }}</h1>
+      <div class='col-3'></div>
+      <h1 class="col-5 display-2 center-block">{{ total_clicks }}</h1>
     </div>
     <div class='row'>
-        <div class='col-3'></div>
-        <h4 class="display-4 col-5 center-block">total clicks so far....</h4>
+      <div class='col-3'></div>
+      <h4 class="display-4 col-5 center-block">total clicks so far....</h4>
+    </div>
+
+    <br><br>
+
+    <div class='row'>
+      <div class="col-1"></div>
+      <table id="leaderboard" class="col-3 table table-striped center-block">
+        <thead>
+          <tr>
+            <th class="table-head">Rank</th>
+            <th class="table-head">Username</th>
+            <th class="table-head">No. of clicks</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in range(0, 6) %}
+          <tr>
+            <td>{{ i }}</td>
+            <td>{{ leaderboard[i][0] }}</td>
+            <td>{{ leaderboard[i][1] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
 
     <br><br><br><br><br><br>
