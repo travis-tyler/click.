@@ -10,6 +10,8 @@ def before_request():
     if 'user_id' in session:
         user = User.query.filter_by(id=session['user_id'])[0]
         g.user = user
+    g.total_clicks = db.engine.execute(f'SELECT SUM(clicks) FROM User').fetchone()[0]
+    g.leaderboard = db.engine.execute(f'SELECT username, clicks FROM User ORDER BY clicks DESC LIMIT 10').fetchall()
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 db = SQLAlchemy(app)
@@ -28,16 +30,13 @@ def home():
     # if not g.user:
     #     return redirect(url_for('login'))
 
-    total_clicks = db.engine.execute(f'SELECT SUM(clicks) FROM User').fetchone()[0]
-    leaderboard = db.engine.execute(f'SELECT username, clicks FROM User ORDER BY clicks DESC LIMIT 10').fetchall()
-
     if request.method == 'POST':
         if request.form['login']:
             return redirect(url_for('login'))
         if request.form['signup']:
             return redirect(url_for('signup'))
 
-    return render_template('index.html', total_clicks=total_clicks, leaderboard=leaderboard)
+    return render_template('index.html', total_clicks=g.total_clicks, leaderboard=g.leaderboard)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -88,9 +87,9 @@ def profile():
     if request.method == "POST":
         g.user.clicks += 1
         db.session.commit()
-        return render_template("profile.html", click_num=g.user.clicks)
+        return render_template("profile.html", click_num=g.user.clicks, total_clicks=g.total_clicks, leaderboard=g.leaderboard)
 
-    return render_template('profile.html', click_num=g.user.clicks)
+    return render_template('profile.html', click_num=g.user.clicks, total_clicks=g.total_clicks, leaderboard=g.leaderboard)
 
 
 if __name__=='__main__':
