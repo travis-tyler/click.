@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, session, redirect, url_for, g
 from flask_sqlalchemy import SQLAlchemy
+from config import SECRET_KEY
 
 app = Flask(__name__)
-app.secret_key = 'supersecretkeydonttellanyone'
+app.secret_key = SECRET_KEY
 
 @app.before_request
 def before_request():
