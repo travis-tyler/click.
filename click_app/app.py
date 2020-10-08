@@ -7,16 +7,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 app.secret_key = 'F\x8c\x1a\xb3\x17x\xfe\xd6Sp\xa1\xc2\x07<@dW\x0c\x7f\xe1\x9c\x03r\x8b'
 
-# Session set up and set global stuff
-@app.before_request
-def before_request():
-    g.user = None
-    if 'user_id' in session:
-        user = User.query.filter_by(id=session['user_id'])[0]
-        g.user = user
-    g.total_clicks = db.engine.execute(f'SELECT SUM(clicks) FROM User').fetchone()[0]
-    g.leaderboard = db.engine.execute(f'SELECT username, clicks FROM User ORDER BY clicks DESC LIMIT 10').fetchall()
-
 # DB setup
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 db = SQLAlchemy(app)
@@ -30,6 +20,18 @@ class User(db.Model):
 
     def __repr__(self):
         return f'<User: {self.username}; Clicks: {self.clicks}>'
+        
+# Session set up and set global stuff
+@app.before_request
+def before_request():
+    g.user = None
+    if 'user_id' in session:
+        user = User.query.filter_by(id=session['user_id'])[0]
+        g.user = user
+    g.total_clicks = 'hi'
+    # db.engine.execute(f'SELECT SUM(clicks) FROM User').fetchone()[0]
+    g.leaderboard = [(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1)]
+    # db.engine.execute(f'SELECT username, clicks FROM User ORDER BY clicks DESC LIMIT 10').fetchall()
 
 # Route for landing page
 @app.route('/', methods=['GET', 'POST'])
