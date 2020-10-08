@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request, session, redirect, url_for, g
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -8,7 +9,9 @@ app = Flask(__name__)
 app.secret_key = 'F\x8c\x1a\xb3\x17x\xfe\xd6Sp\xa1\xc2\x07<@dW\x0c\x7f\xe1\x9c\x03r\x8b'
 
 # DB setup
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') 
+
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 db = SQLAlchemy(app)
 
 # Create user table model
