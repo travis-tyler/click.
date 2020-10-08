@@ -7,7 +7,7 @@ from config import SECRET_KEY
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
 
-# Set up session and global stuff
+# Session set up and set global stuff
 @app.before_request
 def before_request():
     g.user = None
