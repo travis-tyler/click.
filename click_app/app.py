@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request, session, redirect, url_for, g
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from config import SECRET_KEY
+# from config import SECRET_KEY
 
 # App setup
 app = Flask(__name__)
-app.secret_key = SECRET_KEY
+app.secret_key = 'F\x8c\x1a\xb3\x17x\xfe\xd6Sp\xa1\xc2\x07<@dW\x0c\x7f\xe1\x9c\x03r\x8b'
 
 # Session set up and set global stuff
 @app.before_request
