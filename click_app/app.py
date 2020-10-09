@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, session, redirect, url_for, g
+from flask import Flask, render_template, request, session, redirect, url_for, g, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func, desc
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -40,7 +40,6 @@ def before_request():
     # db.engine.execute(f'SELECT SUM(clicks) FROM User').fetchone()[0]
     g.leaderboard = db.session.query(User.username, User.clicks).order_by(desc(User.clicks))
     # db.engine.execute(f'SELECT username, clicks FROM User ORDER BY clicks DESC LIMIT 10').fetchall()
-    # [(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1)]
 
 # Route for landing page
 @app.route('/', methods=['GET', 'POST'])
@@ -120,9 +119,14 @@ def profile():
 
         # Display current user's clicks, total clicks, and leaderboard
         # TODO: Fix total_clicks delay 
-        return render_template("profile.html", click_num=g.user.clicks, total_clicks=g.total_clicks, leaderboard=g.leaderboard)
+        # return render_template("profile.html", click_num=g.user.clicks, total_clicks=g.total_clicks, leaderboard=g.leaderboard)
 
-    return render_template('profile.html', click_num=g.user.clicks, total_clicks=g.total_clicks, leaderboard=g.leaderboard)
+    return render_template('profile.html', leaderboard=g.leaderboard)
+
+@app.route('/api/clickdata')
+def data():
+    click_data = [g.user.clicks, g.total_clicks, g.leaderboard]
+    return jsonify(click_data)
 
 if __name__=='__main__':
     app.run(debug=True)
