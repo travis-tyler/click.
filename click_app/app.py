@@ -95,6 +95,12 @@ def signup():
                     db.session.commit()
         
                     return redirect(url_for('login'))
+                
+                return render_template('signup.html')
+        
+            return render_template('signup.html')
+
+        return render_template('signup.html')
 
     return render_template('signup.html')
 
