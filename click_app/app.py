@@ -34,10 +34,10 @@ db.create_all()
 # Session set up and set global stuff
 @app.before_request
 def before_request():
-    # g.user = None
-    # if 'user_id' in session:
-    #     user = User.query.filter_by(id=session['user_id'])[0]
-    #     g.user = user
+    g.user = None
+    if 'user_id' in session:
+        user = User.query.filter_by(id=session['user_id'])[0]
+        g.user = user
     g.total_clicks = 'hi'
     # db.engine.execute(f'SELECT SUM(clicks) FROM User').fetchone()[0]
     g.leaderboard = [(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1)]
@@ -109,9 +109,9 @@ def signup():
 # Route for profile
 @app.route('/profile', methods=['POST', 'GET'])
 def profile():
-    # Redirect to login if not in session
-    # if not g.user:
-    #     return redirect(url_for('login'))
+    Redirect to login if not in session
+    if not g.user:
+        return redirect(url_for('login'))
     
     # Add 1 to current users click total (User.clicks) if button pressed
     if request.method == "POST":
