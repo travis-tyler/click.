@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, request, session, redirect, url_for, g
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine
+from SQLAlchemy import func
 from werkzeug.security import generate_password_hash, check_password_hash
 # from config import SECRET_KEY
 
@@ -29,8 +29,6 @@ class User(db.Model):
 
 db.create_all()
 
-engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
-
 # Session set up and set global stuff
 @app.before_request
 def before_request():
@@ -38,7 +36,7 @@ def before_request():
     if 'user_id' in session:
         user = User.query.filter_by(id=session['user_id'])[0]
         g.user = user
-    g.total_clicks = db.engine.execute(f'SELECT SUM(clicks) FROM User').fetchone()[0]
+    g.total_clicks = db.session.query(func.sum(User.clicks))[0][0]
     g.leaderboard = [(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1)]
     # db.engine.execute(f'SELECT username, clicks FROM User ORDER BY clicks DESC LIMIT 10').fetchall()
 
