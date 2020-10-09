@@ -109,7 +109,7 @@ def signup():
 # Route for profile
 @app.route('/profile', methods=['POST', 'GET'])
 def profile():
-    Redirect to login if not in session
+    # Redirect to login if not in session
     if not g.user:
         return redirect(url_for('login'))
     
