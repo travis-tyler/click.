@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, request, session, redirect, url_for, g
 from flask_sqlalchemy import SQLAlchemy
-from SQLAlchemy import func
+# from SQLAlchemy import func
 from werkzeug.security import generate_password_hash, check_password_hash
 # from config import SECRET_KEY
 
@@ -36,8 +36,9 @@ def before_request():
     if 'user_id' in session:
         user = User.query.filter_by(id=session['user_id'])[0]
         g.user = user
-    g.total_clicks = 'hi'
+    g.total_clicks = 'UGHHH'
     # db.session.query(func.sum(User.clicks))[0][0]
+    # db.engine.execute(f'SELECT SUM(clicks) FROM User').fetchone()[0]
     g.leaderboard = [(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1)]
     # db.engine.execute(f'SELECT username, clicks FROM User ORDER BY clicks DESC LIMIT 10').fetchall()
 
