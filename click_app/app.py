@@ -11,9 +11,6 @@ app.secret_key = 'F\x8c\x1a\xb3\x17x\xfe\xd6Sp\xa1\xc2\x07<@dW\x0c\x7f\xe1\x9c\x
 # DB setup
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or "sqlite:///db.sqlite"
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
-# db = SQLAlchemy(app)
-
 # Remove tracking modifications
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -38,8 +35,7 @@ def before_request():
     if 'user_id' in session:
         user = User.query.filter_by(id=session['user_id'])[0]
         g.user = user
-    g.total_clicks = 'hi'
-    # db.engine.execute(f'SELECT SUM(clicks) FROM User').fetchone()[0]
+    g.total_clicks = db.engine.execute(f'SELECT SUM(clicks) FROM User').fetchone()[0]
     g.leaderboard = [(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1)]
     # db.engine.execute(f'SELECT username, clicks FROM User ORDER BY clicks DESC LIMIT 10').fetchall()
 
@@ -59,7 +55,7 @@ def login():
         password_1 = request.form['password']
 
         # Check if user exists and hashed pw matches
-        user = User.query.filter_by(username=username)[0]
+        user = User.query.filter_by(username=username).first()
         if user and check_password_hash(user.password, password_1):
             # Start session and redirect to profile
             session['user_id'] = user.id
@@ -77,7 +73,7 @@ def signup():
     # End existing session
     session.pop('user_id', None)
     if request.method == 'POST':
-        # session.pop('user_id', None)
+        session.pop('user_id', None)
 
         # Get account info
         username = request.form['username']
