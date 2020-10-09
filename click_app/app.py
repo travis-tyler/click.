@@ -29,7 +29,7 @@ class User(db.Model):
 
 db.create_all()
 
-engine = create_engine('DATABASE_URL')
+engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 
 # Session set up and set global stuff
 @app.before_request
