@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template, request, session, redirect, url_for, g
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine
 from werkzeug.security import generate_password_hash, check_password_hash
 # from config import SECRET_KEY
 
@@ -27,7 +28,9 @@ class User(db.Model):
         return f'<User: {self.username}; Clicks: {self.clicks}>'
 
 db.create_all()
-        
+
+engine = create_engine('DATABASE_URL')
+
 # Session set up and set global stuff
 @app.before_request
 def before_request():
