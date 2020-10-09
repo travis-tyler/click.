@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, request, session, redirect, url_for, g
 from flask_sqlalchemy import SQLAlchemy
-# from SQLAlchemy import func
+from SQLAlchemy import func, desc
 from werkzeug.security import generate_password_hash, check_password_hash
 # from config import SECRET_KEY
 
@@ -39,7 +39,8 @@ def before_request():
     g.total_clicks = 'UGHHH'
     # db.session.query(func.sum(User.clicks))[0][0]
     # db.engine.execute(f'SELECT SUM(clicks) FROM User').fetchone()[0]
-    g.leaderboard = db.engine.execute(f'SELECT username, clicks FROM User ORDER BY clicks DESC LIMIT 10').fetchall()
+    g.leaderboard = db.session.query(User.username, User.clicks).order_by(desc(User.clicks))
+    # db.engine.execute(f'SELECT username, clicks FROM User ORDER BY clicks DESC LIMIT 10').fetchall()
     # [(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1)]
 
 # Route for landing page
