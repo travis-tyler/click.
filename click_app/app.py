@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, request, session, redirect, url_for, g
-from flask_sqlalchemy import SQLAlchemy
-from SQLAlchemy import func, desc
+from flask_sqlalchemy import SQLAlchemy, func, desc
+# from SQLAlchemy import func, desc
 from werkzeug.security import generate_password_hash, check_password_hash
 # from config import SECRET_KEY
 
