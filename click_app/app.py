@@ -39,8 +39,8 @@ def before_request():
     g.total_clicks = 'UGHHH'
     # db.session.query(func.sum(User.clicks))[0][0]
     # db.engine.execute(f'SELECT SUM(clicks) FROM User').fetchone()[0]
-    g.leaderboard = [(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1)]
-    # db.engine.execute(f'SELECT username, clicks FROM User ORDER BY clicks DESC LIMIT 10').fetchall()
+    g.leaderboard = db.engine.execute(f'SELECT username, clicks FROM User ORDER BY clicks DESC LIMIT 10').fetchall()
+    # [(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1)]
 
 # Route for landing page
 @app.route('/', methods=['GET', 'POST'])
