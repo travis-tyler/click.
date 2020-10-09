@@ -28,17 +28,17 @@ class User(db.Model):
     def __repr__(self):
         return f'<User: {self.username}; Clicks: {self.clicks}>'
         
-# # Session set up and set global stuff
-# @app.before_request
-# def before_request():
-#     g.user = None
-#     if 'user_id' in session:
-#         user = User.query.filter_by(id=session['user_id'])[0]
-#         g.user = user
-#     g.total_clicks = 'hi'
-#     # db.engine.execute(f'SELECT SUM(clicks) FROM User').fetchone()[0]
-#     g.leaderboard = [(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1)]
-#     # db.engine.execute(f'SELECT username, clicks FROM User ORDER BY clicks DESC LIMIT 10').fetchall()
+# Session set up and set global stuff
+@app.before_request
+def before_request():
+    # g.user = None
+    # if 'user_id' in session:
+    #     user = User.query.filter_by(id=session['user_id'])[0]
+    #     g.user = user
+    g.total_clicks = 'hi'
+    # db.engine.execute(f'SELECT SUM(clicks) FROM User').fetchone()[0]
+    g.leaderboard = [(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1)]
+    # db.engine.execute(f'SELECT username, clicks FROM User ORDER BY clicks DESC LIMIT 10').fetchall()
 
 # Route for landing page
 @app.route('/', methods=['GET', 'POST'])
@@ -97,24 +97,24 @@ def signup():
 
     return render_template('signup.html')
 
-# # Route for profile
-# @app.route('/profile', methods=['POST', 'GET'])
-# def profile():
-#     # Redirect to login if not in session
-#     if not g.user:
-#         return redirect(url_for('login'))
+# Route for profile
+@app.route('/profile', methods=['POST', 'GET'])
+def profile():
+    # Redirect to login if not in session
+    if not g.user:
+        return redirect(url_for('login'))
     
-#     # Add 1 to current users click total (User.clicks) if button pressed
-#     if request.method == "POST":
-#         g.user.clicks += 1
-#         # Commit change on every click
-#         db.session.commit()
+    # Add 1 to current users click total (User.clicks) if button pressed
+    if request.method == "POST":
+        g.user.clicks += 1
+        # Commit change on every click
+        db.session.commit()
 
-#         # Display current user's clicks, total clicks, and leaderboard
-#         # TODO: Fix total_clicks delay 
-#         return render_template("profile.html", click_num=g.user.clicks, total_clicks=g.total_clicks, leaderboard=g.leaderboard)
+        # Display current user's clicks, total clicks, and leaderboard
+        # TODO: Fix total_clicks delay 
+        return render_template("profile.html", click_num=g.user.clicks, total_clicks=g.total_clicks, leaderboard=g.leaderboard)
 
-#     return render_template('profile.html', click_num=g.user.clicks, total_clicks=g.total_clicks, leaderboard=g.leaderboard)
+    return render_template('profile.html', click_num=g.user.clicks, total_clicks=g.total_clicks, leaderboard=g.leaderboard)
 
 if __name__=='__main__':
     app.run(debug=True)
