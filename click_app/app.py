@@ -35,8 +35,7 @@ def before_request():
     if 'user_id' in session:
         user = User.query.filter_by(id=session['user_id'])[0]
         g.user = user
-    g.total_clicks = 'hi'
-    # db.engine.execute(f'SELECT SUM(clicks) FROM User').fetchone()[0]
+    g.total_clicks = db.engine.execute(f'SELECT SUM(clicks) FROM User').fetchone()[0]
     g.leaderboard = [(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1),(1,1)]
     # db.engine.execute(f'SELECT username, clicks FROM User ORDER BY clicks DESC LIMIT 10').fetchall()
 
