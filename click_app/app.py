@@ -29,13 +29,7 @@ class User(db.Model):
     def __repr__(self):
         return f'<User: {self.username}; Clicks: {self.clicks}>'
 
-import click
-from flask.cli import with_appcontext
-
-@click.command(name='create_tables')
-@with_appcontext
-def create_tables():
-    db.create_all()
+db.create_all()
         
 # Session set up and set global stuff
 @app.before_request
