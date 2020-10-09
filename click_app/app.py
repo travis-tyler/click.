@@ -110,8 +110,8 @@ def signup():
 @app.route('/profile', methods=['POST', 'GET'])
 def profile():
     # Redirect to login if not in session
-    if not g.user:
-        return redirect(url_for('login'))
+    # if not g.user:
+    #     return redirect(url_for('login'))
     
     # Add 1 to current users click total (User.clicks) if button pressed
     if request.method == "POST":
