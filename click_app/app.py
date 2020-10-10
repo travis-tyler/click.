@@ -127,8 +127,7 @@ def profile():
 def data():
     click_data = [{
         'user_clicks':g.user.clicks, 
-        'total_clicks':g.total_clicks, 
-        'leaderboard':g.leaderboard
+        'total_clicks':g.total_clicks    
     }]
     return jsonify(click_data)
 
