@@ -107,6 +107,7 @@ def signup():
 # Route for profile
 @app.route('/profile', methods=['POST', 'GET'])
 def profile():
+
     # Redirect to login if not in session
     if not g.user:
         return redirect(url_for('login'))
@@ -114,11 +115,8 @@ def profile():
     # Add 1 to current users click total (User.clicks) if button pressed
     if request.method == "POST":
         g.user.clicks += 1
-        # Commit change on every click
         db.session.commit()
 
-        # Display current user's clicks, total clicks, and leaderboard
-        # TODO: Fix total_clicks delay 
         # return render_template("profile.html", click_num=g.user.clicks, total_clicks=g.total_clicks, leaderboard=g.leaderboard)
         return redirect(url_for('profile'))
 
@@ -127,6 +125,7 @@ def profile():
 
 @app.route('/api/clickdata')
 def data():
+    
     # Return dictionary of click data to api
     click_data = [{
         'user_clicks':g.user.clicks, 

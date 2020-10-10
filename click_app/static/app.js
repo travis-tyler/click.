@@ -15,9 +15,9 @@ function showClicks() {
 }
 
 // Add event listener for submit button
-d3.select("#clickButton").on("click", showClicks);
+// d3.select("#clickButton").on("click", showClicks);
 
-// showClicks();
+showClicks();
 
 // let clickButton = d3.select('#clickButton');
 
