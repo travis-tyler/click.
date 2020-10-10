@@ -7,9 +7,8 @@ function showClicks() {
         console.log(response);
 
         // Select the click displays
-        d3.event.preventDefault();
-        d3.select(".user_click_num").text(response['user_clicks']);
-        d3.select(".total_click_num").text(response['total_clicks']);
+        d3.select(".user_click_num").text(response[0]['user_clicks']);
+        d3.select(".total_click_num").text(response[0]['total_clicks']);
 
     });
 }
@@ -18,6 +17,20 @@ function showClicks() {
 // d3.select("#clickButton").on("click", showClicks);
 
 showClicks();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // let clickButton = d3.select('#clickButton');
 
