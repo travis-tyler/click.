@@ -118,7 +118,7 @@ def profile():
         db.session.commit()
 
         # return render_template("profile.html", click_num=g.user.clicks, total_clicks=g.total_clicks, leaderboard=g.leaderboard)
-        return redirect(url_for('profile'))
+        # return redirect(url_for('profile'))
 
     return render_template('profile.html', leaderboard=g.leaderboard)
 
