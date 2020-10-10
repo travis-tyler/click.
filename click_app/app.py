@@ -120,6 +120,8 @@ def profile():
         # Display current user's clicks, total clicks, and leaderboard
         # TODO: Fix total_clicks delay 
         # return render_template("profile.html", click_num=g.user.clicks, total_clicks=g.total_clicks, leaderboard=g.leaderboard)
+        return redirect(url_for('profile'))
+
 
     return render_template('profile.html', leaderboard=g.leaderboard)
 
