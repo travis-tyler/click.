@@ -125,7 +125,7 @@ def profile():
 
 @app.route('/api/clickdata')
 def data():
-    click_data = [g.user.clicks, g.total_clicks, g.leaderboard]
+    click_data = {'user_clicks':g.user.clicks, 'total_clicks':g.total_clicks, 'leaderboard':g.leaderboard}
     return jsonify(click_data)
 
 if __name__=='__main__':
