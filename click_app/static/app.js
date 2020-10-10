@@ -1,6 +1,6 @@
-function showClicks(e) {
-    e.preventDefault();
-
+function showClicks() {
+    d3.event.preventDefault();
+    
     /* data route */
     const url = "/api/clickdata";
     d3.json(url).then(function(response) {
@@ -12,13 +12,11 @@ function showClicks(e) {
         d3.select("#user_click_num").text(response[0]['user_clicks']);
         d3.select("#total_click_num").text(response[0]['total_clicks']);
 
-    return false
-
     });
 }
 
 // Add event listener for submit button
-d3.select("#clickButton").on("click", showClicks(e));
+d3.select("#clickButton").on("click", showClicks());
 
 showClicks();
 
