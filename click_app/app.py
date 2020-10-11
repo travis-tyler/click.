@@ -124,6 +124,7 @@ def data():
     if request.method == "POST":
         g.user.clicks += 1
         db.session.commit()
+        print(g.user.clicks)
 
     # for i in range(0, 10):
     #     click_data['leaderboard'].append(g.leaderboard[i])
