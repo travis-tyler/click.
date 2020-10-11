@@ -101,7 +101,7 @@
     <br><br><br><br><br>
     
     <div class='row'>
-        <form method="POST" class="center-block">
+        <form onsubmit="handleSubmit(event)" class="center-block">
             <input id="clickButton" class="btn btn-primary btn-lg" type="submit" value="Click.">
         </form>      
     </div>
@@ -134,7 +134,7 @@
           </tr>
         </thead>
         <tbody>
-          {% for i in range(0, 10) %}
+          {% for i in range(0, 3) %}
           <tr>
             <td>{{ i+1 }}</td>
             <td>{{ leaderboard[i][0] }}</td>

@@ -38,7 +38,7 @@ def before_request():
         g.user = user
     g.total_clicks = db.session.query(func.sum(User.clicks))[0][0]
     # db.engine.execute(f'SELECT SUM(clicks) FROM User').fetchone()[0]
-    g.leaderboard = db.session.query(User.username, User.clicks).order_by(desc(User.clicks))
+    g.leaderboard = db.session.query(User.username, User.clicks).order_by(desc(User.clicks)).limit(10)
     # db.engine.execute(f'SELECT username, clicks FROM User ORDER BY clicks DESC LIMIT 10').fetchall()
 
 # Route for landing page
@@ -50,9 +50,9 @@ def home():
 # Route for login page
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    session.pop('user_id', None)
     if request.method == 'POST':
         # End session
-        session.pop('user_id', None)
         username = request.form['username']
         password_1 = request.form['password']
 
@@ -64,7 +64,7 @@ def login():
             return redirect(url_for('profile'))
         
         # On failed login, redirect back to login page
-        # TODO: Add message
+        # TODO: Add message/alert
         return redirect(url_for('login'))
 
     return render_template('login.html')
@@ -96,6 +96,7 @@ def signup():
         
                     return redirect(url_for('login'))
 
+    # TODO: Add fail message/alert
     return render_template('signup.html')
 
 # Route for profile
@@ -106,17 +107,9 @@ def profile():
     if not g.user:
         return redirect(url_for('login'))
 
-    # Add 1 to current users click total (User.clicks) if button pressed
-    if request.method == "POST":
-        g.user.clicks += 1
-        db.session.commit()
-
-        # return render_template("profile.html", click_num=g.user.clicks, total_clicks=g.total_clicks, leaderboard=g.leaderboard)
-        # return redirect(url_for('profile'))
-
     return render_template('profile.html', leaderboard=g.leaderboard)
 
-@app.route('/api/clickdata', methods=['POST', 'GET'])
+@app.route('/api/clickdata', methods=['GET'])
 def data():
 
     # Return dictionary of click data to api
@@ -125,10 +118,22 @@ def data():
         'total_clicks':g.total_clicks    
     }]
 
-    # for i in range(0, 10):
-    #     click_data['leaderboard'].append(g.leaderboard[i])
+    return jsonify(click_data)
+
+@app.route('/api/update_clickdata', methods=['GET'])
+def update():
+    # Add 1 to current users click total (User.clicks) if button pressed
+    g.user.clicks += 1
+    db.session.commit()
+
+    # Return dictionary of click data to api
+    click_data = [{
+        'user_clicks':g.user.clicks, 
+        'total_clicks':g.total_clicks    
+    }]
 
     return jsonify(click_data)
+
 
 if __name__=='__main__':
     app.run(debug=True)

@@ -6,6 +6,7 @@
   <meta charset="UTF-8">
   <title>Clicc.</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="static/stlye.css"> -->
   
   <style>
     /* Header/logo Title */
@@ -21,7 +22,12 @@
       font-size: 40px;
     }
 
-    /* Sticky navbar - toggles between relative and fixed, depending on the scroll position. It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed). The sticky value is not supported in IE or Edge 15 and earlier versions. However, for these versions the navbar will inherit default position */
+    /* Sticky navbar - toggles between relative and fixed, 
+    depending on the scroll position. It is positioned relative 
+    until a given offset position is met in the viewport - then 
+    it "sticks" in place (like position:fixed). The sticky value 
+    is not supported in IE or Edge 15 and earlier versions. 
+    However, for these versions the navbar will inherit default position */
     .navbar {
       overflow: hidden;
       background-color: #333;
@@ -107,7 +113,7 @@
           </tr>
         </thead>
         <tbody>
-          {% for i in range(0, 10) %}
+          {% for i in range(0, 3) %}
           <tr>
             <td>{{ i+1 }}</td>
             <td>{{ leaderboard[i][0] }}</td>
