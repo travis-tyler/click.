@@ -14,9 +14,12 @@ function showClicks() {
 }
 
 // Add event listener for submit button
-d3.select("#clickButton").on("click", function(event) {
-    event.preventDefault();
-    showClicks();
-});
+// d3.select("#clickButton").on("click", function(event) {
+//     event.preventDefault();
+//     showClicks();
+// });
+
+d3.select("#clickButton").on("click", showClicks());
+
 
 showClicks();
