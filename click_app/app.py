@@ -111,7 +111,7 @@ def profile():
 
     return render_template('profile.html', leaderboard=g.leaderboard)
 
-@app.route('/api/clickdata')
+@app.route('/api/clickdata', methods=['POST', 'GET'])
 def data():
 
     # Return dictionary of click data to api
