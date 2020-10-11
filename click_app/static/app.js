@@ -22,4 +22,4 @@ function showClicks() {
 d3.select("#clickButton").on("click", showClicks());
 
 
-showClicks();
+// showClicks();
