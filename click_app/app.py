@@ -105,14 +105,9 @@ def profile():
     # Redirect to login if not in session
     if not g.user:
         return redirect(url_for('login'))
-    
-    # Add 1 to current users click total (User.clicks) if button pressed
-    if request.method == "POST":
-        g.user.clicks += 1
-        db.session.commit()
 
         # return render_template("profile.html", click_num=g.user.clicks, total_clicks=g.total_clicks, leaderboard=g.leaderboard)
-        return redirect(url_for('profile'))
+        # return redirect(url_for('profile'))
 
     return render_template('profile.html')
 
@@ -124,6 +119,11 @@ def data():
         'user_clicks':g.user.clicks, 
         'total_clicks':g.total_clicks    
     }]
+
+    # Add 1 to current users click total (User.clicks) if button pressed
+    if request.method == "POST":
+        g.user.clicks += 1
+        db.session.commit()
 
     # for i in range(0, 10):
     #     click_data['leaderboard'].append(g.leaderboard[i])
