@@ -7,7 +7,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 # App setup
 app = Flask(__name__)
-app.secret_key = 'F\x8c\x1a\xb3\x17x\xfe\xd6Sp\xa1\xc2\x07<@dW\x0c\x7f\xe1\x9c\x03r\x8b'
+# app.secret_key = 'F\x8c\x1a\xb3\x17x\xfe\xd6Sp\xa1\xc2\x07<@dW\x0c\x7f\xe1\x9c\x03r\x8b'
+app.secret_key = os.getenv('SECRET_KEY', 'Optional default value')
 
 # DB setup
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or "sqlite:///db.sqlite"
@@ -115,8 +116,11 @@ def data():
     # Return dictionary of click data to api
     click_data = [{
         'user_clicks':g.user.clicks, 
-        'total_clicks':g.total_clicks    
+        'total_clicks':g.total_clicks   
     }]
+
+    # for i in range(0, 4):
+    #     click_data[0]['leaderboard'] = {f'{i+1}':[g.leaderboard[i][0],g.leaderboard[i][1]]}
 
     return jsonify(click_data)
 
@@ -129,8 +133,11 @@ def update():
     # Return dictionary of click data to api
     click_data = [{
         'user_clicks':g.user.clicks, 
-        'total_clicks':g.total_clicks    
+        'total_clicks':g.total_clicks
     }]
+
+    # for i in range(0, 4):
+    #     click_data[0]['leaderboard'] = {f'{i+1}':[g.leaderboard[i][0],g.leaderboard[i][1]]}
 
     return jsonify(click_data)
 
