@@ -101,7 +101,7 @@
     <br><br><br><br><br>
     
     <div class='row'>
-        <form action="/api/clickdata" method="POST" class="center-block">
+        <form action="{{ url_for(data) }}" method="POST" class="center-block">
             <input id="clickButton" class="btn btn-primary btn-lg" type="submit" value="Click.">
         </form>      
     </div>
