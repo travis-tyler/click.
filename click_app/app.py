@@ -118,9 +118,6 @@ def data():
         'total_clicks':g.total_clicks   
     }]
 
-    # for i in range(0, 4):
-    #     click_data[0]['leaderboard'] = {f'{i+1}':[g.leaderboard[i][0],g.leaderboard[i][1]]}
-
     return jsonify(click_data)
 
 @app.route('/api/update_clickdata', methods=['GET'])
@@ -134,9 +131,6 @@ def update():
         'user_clicks':g.user.clicks, 
         'total_clicks':g.total_clicks
     }]
-
-    # for i in range(0, 4):
-    #     click_data[0]['leaderboard'] = {f'{i+1}':[g.leaderboard[i][0],g.leaderboard[i][1]]}
 
     return jsonify(click_data)
 
