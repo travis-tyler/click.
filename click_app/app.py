@@ -129,7 +129,7 @@ def update():
     # Return dictionary of click data to api
     click_data = [{
         'user_clicks':g.user.clicks, 
-        'total_clicks':g.total_clicks
+        'total_clicks':db.session.query(func.sum(User.clicks))[0][0]
     }]
 
     return jsonify(click_data)
