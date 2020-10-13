@@ -18,6 +18,5 @@ function handleSubmit(event) {
         // Select the click displays
         d3.select('#user_click_num').text(response[0]['user_clicks']);
         d3.select('#total_click_num').text(response[0]['total_clicks']);
-
     });
 }
