@@ -109,22 +109,13 @@ def profile():
 
     return render_template('profile.html', leaderboard=g.leaderboard)
 
-@app.route('/api/clickdata', methods=['GET'])
+@app.route('/api/clickdata', methods=['GET', 'POST'])
 def data():
 
-    # Return dictionary of click data to api
-    click_data = [{
-        'user_clicks':g.user.clicks, 
-        'total_clicks':g.total_clicks   
-    }]
-
-    return jsonify(click_data)
-
-@app.route('/api/update_clickdata', methods=['GET'])
-def update():
-    # Add 1 to current users click total (User.clicks) if button pressed
-    g.user.clicks += 1
-    db.session.commit()
+    if request.method == 'POST':
+        # Add 1 to current users click total (User.clicks) if button pressed
+        g.user.clicks += 1
+        db.session.commit()
 
     # Return dictionary of click data to api
     click_data = [{
