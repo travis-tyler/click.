@@ -120,8 +120,15 @@ def data():
     # Return dictionary of click data to api
     click_data = [{
         'user_clicks':g.user.clicks, 
-        'total_clicks':db.session.query(func.sum(User.clicks))[0][0]
+        'total_clicks':db.session.query(func.sum(User.clicks))[0][0],
+        'leaderboard':{'users':[], 'clicks':[]}
     }]
+
+    # Add top usernames and number of clicks to lists in API data
+    new_leaderboard = db.session.query(User.username, User.clicks).order_by(desc(User.clicks)).limit(10)
+    for i in range(0, 6):
+        click_data[0]['leaderboard']['users'].append(new_leaderboard[i][0])
+        click_data[0]['leaderboard']['clicks'].append(new_leaderboard[i][1])
 
     return jsonify(click_data)
 

@@ -25,16 +25,16 @@
 
     <div class='row'>
         <div class='col-3'></div>
-        <h4 class="display-4 col-5 center-block">{{ g.user.username }} has clicked</h4>
+        <h4 class="display-4 col-5 center-block">{{ g.user.username }}'s clicks:</h4>
     </div>
     <div class='row'>
         <div class='col-3'></div>
         <h1 id="user_click_num" class="col-5 display-2 center-block"></h1>
     </div>
-    <div class='row'>
+    <!-- <div class='row'>
         <div class='col-3'></div>
         <h4 class="display-4 col-5 center-block">times so far....</h4>
-    </div>
+    </div> -->
 
     <br><br><br><br><br>
     
@@ -48,22 +48,23 @@
 
     <div class='row'>
         <div class='col-3'></div>
-        <h4 class="display-4 col-5 center-block">There have been</h4>
+        <h4 class="display-4 col-5 center-block">Total clicks:</h4>
     </div>
     <div class='row'>
       <div class='col-3'></div>
       <h1 id="total_click_num" class="col-5 display-3 center-block"></h1>
     </div>
-    <div class='row'>
+    <!-- <div class='row'>
       <div class='col-3'></div>
       <h4 class="display-4 col-5 center-block">total clicks</h4>
-    </div>
+    </div> -->
 
     <br><br>
 
     <div class='row'>
-      <div class="col-1"></div>
-      <table id="leaderboard" class="col-3 table table-striped center-block">
+      <!-- <div class="col-1"></div> -->
+      <div id="plot" class="col-6 center-block"></div>
+      <!-- <table id="leaderboard" class="col-3 table table-striped center-block">
         <thead>
           <tr>
             <th class="table-head">Rank</th>
@@ -80,7 +81,7 @@
           </tr>
           {% endfor %}
         </tbody>
-      </table>
+      </table> -->
     </div>
 
     <div class='row'>
@@ -94,6 +95,7 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="../static/js/app.js"></script>
 
 </body>
